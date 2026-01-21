@@ -1,0 +1,29 @@
+[package]
+name = "prism-tui"
+version = "0.1.0"
+edition = "2024"
+rust-version = "1.92.0"
+description = "A TUI application for PrismLauncher"
+license = "MIT"
+repository = "https://github.com/OneNoted/prism-tui"
+homepage = "https://github.com/OneNoted/prism-tui"
+readme = "README.md"
+keywords = ["minecraft", "launcher", "tui", "terminal", "prismlauncher"]
+categories = ["command-line-utilities"]
+
+[dependencies]
+ratatui = "0.29"
+crossterm = { version = "0.28", features = ["event-stream"] }
+tokio = { version = "1.43", features = ["full"] }
+futures = "0.3"
+serde = { version = "1.0", features = ["derive"] }
+serde_json = "1.0"
+configparser = "3.1"
+dirs = "5.0"
+thiserror = "2.0"
+color-eyre = "0.6"
+hematite_nbt = { version = "0.5", package = "hematite-nbt" }
+flate2 = "1.0"
+chrono = "0.4"
+toml = "0.8"
+sysinfo = { version = "0.38", default-features = false, features = ["system"] }

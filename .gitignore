@@ -1,0 +1,17 @@
+# Build artifacts
+/target
+
+# IDE and editor files
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.*.swp
+
+# macOS
+.DS_Store
+
+# Project-specific
+/.planning
+CLAUDE.md

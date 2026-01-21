@@ -1,0 +1,4 @@
+# Rustfmt configuration for prism-tui
+edition = "2024"
+max_width = 100
+use_small_heuristics = "Default"
