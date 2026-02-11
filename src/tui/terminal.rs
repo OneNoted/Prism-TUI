@@ -26,7 +26,6 @@ impl Terminal {
         self.terminal.draw(f)?;
         Ok(())
     }
-
 }
 
 impl Drop for Terminal {
