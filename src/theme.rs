@@ -1,6 +1,7 @@
 use ratatui::style::Color;
 
 /// Catppuccin Mocha color palette
+#[allow(dead_code)]
 pub mod colors {
     use super::Color;
 
@@ -42,6 +43,7 @@ pub mod colors {
 }
 
 /// Semantic color aliases for UI elements
+#[allow(dead_code)]
 pub mod ui {
     use super::Color;
     use super::colors;

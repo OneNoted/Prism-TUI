@@ -3,9 +3,9 @@ use configparser::ini::Ini;
 use std::env;
 use std::path::{Path, PathBuf};
 
-#[allow(dead_code)]
 pub struct PrismConfig {
     pub data_dir: PathBuf,
+    #[allow(dead_code)]
     pub selected_instance: Option<String>,
 }
 

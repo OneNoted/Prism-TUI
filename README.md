@@ -5,6 +5,10 @@
 
 A terminal user interface for [PrismLauncher](https://prismlauncher.org/) - manage and launch your Minecraft instances from the command line.
 
+> **Disclaimer:** Early development. Windows is untested.
+
+![Prism-TUI screenshot](assets/demo1.png)
+
 ## Features
 
 - **Instance Management** - Browse all your PrismLauncher instances with version and mod loader info

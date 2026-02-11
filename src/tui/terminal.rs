@@ -9,12 +9,10 @@ use std::io::{self, Stdout, stdout};
 
 pub type CrosstermTerminal = ratatui::Terminal<CrosstermBackend<Stdout>>;
 
-#[allow(dead_code)]
 pub struct Terminal {
     terminal: CrosstermTerminal,
 }
 
-#[allow(dead_code)]
 impl Terminal {
     pub fn new() -> Result<Self> {
         let terminal = setup_terminal()?;
@@ -29,10 +27,6 @@ impl Terminal {
         Ok(())
     }
 
-    pub fn size(&self) -> Result<Rect> {
-        let size = self.terminal.size()?;
-        Ok(Rect::new(0, 0, size.width, size.height))
-    }
 }
 
 impl Drop for Terminal {
