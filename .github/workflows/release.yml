@@ -28,7 +28,7 @@ jobs:
             archive: tar.gz
           - target: x86_64-pc-windows-msvc
             os: windows-latest
-            archive: zip
+            archive: exe
 
     steps:
       - uses: actions/checkout@v4
@@ -52,10 +52,10 @@ jobs:
           cd ../../..
 
       - name: Package (windows)
-        if: matrix.archive == 'zip'
+        if: matrix.archive == 'exe'
         shell: pwsh
         run: |
-          Compress-Archive -Path "target/${{ matrix.target }}/release/prism-tui.exe" -DestinationPath "prism-tui-${{ github.ref_name }}-${{ matrix.target }}.zip"
+          Copy-Item "target/${{ matrix.target }}/release/prism-tui.exe" "prism-tui-${{ github.ref_name }}-${{ matrix.target }}.exe"
 
       - name: Upload artifact
         uses: actions/upload-artifact@v4
