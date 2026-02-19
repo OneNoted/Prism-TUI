@@ -1221,7 +1221,7 @@ checksum = "439ee305def115ba05938db6eb1644ff94165c5ab5e9420d1c1bcedbba909391"
 
 [[package]]
 name = "prism-tui"
-version = "0.1.0"
+version = "0.1.1"
 dependencies = [
  "chrono",
  "color-eyre",
