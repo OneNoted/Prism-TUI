@@ -127,10 +127,14 @@ prism-tui stores its settings in a TOML config file:
 ```toml
 default_sort = "Last Played"
 sort_ascending = true
-data_dir = "~/Games/PrismLauncher"  # optional, overrides auto-detection
+data_dir = "~/Games/PrismLauncher"          # optional, overrides auto-detection
+instances_dir = "/mnt/ssd/mc-instances"     # optional, overrides instances path
 ```
 
-Sort and sort-direction preferences are saved automatically. The `data_dir` option supports `~` tilde expansion.
+Sort and sort-direction preferences are saved automatically. Both `data_dir` and `instances_dir` support `~` tilde expansion.
+
+- `data_dir` overrides the root PrismLauncher directory (affects accounts, logs, launcher config, and instances).
+- `instances_dir` overrides only the instances path, useful when instances live on a separate drive or non-standard location. When unset, defaults to `<data_dir>/instances`.
 
 ## Architecture
 
