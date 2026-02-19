@@ -5,12 +5,22 @@ use std::path::{Path, PathBuf};
 
 pub struct PrismConfig {
     pub data_dir: PathBuf,
+    instances_dir_override: Option<PathBuf>,
     #[allow(dead_code)]
     pub selected_instance: Option<String>,
 }
 
 impl PrismConfig {
-    pub fn load(data_dir: &Path) -> Result<Self> {
+    pub fn load(data_dir: &Path, instances_dir_override: Option<PathBuf>) -> Result<Self> {
+        if let Some(ref dir) = instances_dir_override
+            && !dir.exists()
+        {
+            return Err(PrismError::Config(format!(
+                "Configured instances_dir does not exist: {}",
+                dir.display()
+            )));
+        }
+
         let config_path = data_dir.join("prismlauncher.cfg");
         let mut config = Ini::new();
 
@@ -25,12 +35,17 @@ impl PrismConfig {
 
         Ok(Self {
             data_dir: data_dir.to_path_buf(),
+            instances_dir_override,
             selected_instance,
         })
     }
 
     pub fn instances_dir(&self) -> PathBuf {
-        self.data_dir.join("instances")
+        if let Some(ref dir) = self.instances_dir_override {
+            dir.clone()
+        } else {
+            self.data_dir.join("instances")
+        }
     }
 
     pub fn accounts_path(&self) -> PathBuf {
