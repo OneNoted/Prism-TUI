@@ -38,16 +38,31 @@ impl PrismConfig {
     }
 }
 
-pub fn find_prism_data_dir() -> Result<PathBuf> {
-    // Check environment variable first
+pub fn find_prism_data_dir(config_data_dir: Option<PathBuf>) -> Result<PathBuf> {
+    // 1. Check environment variable first
     if let Ok(path) = env::var("PRISMLAUNCHER_DATA") {
         let path = PathBuf::from(path);
         if path.exists() {
             return Ok(path);
         }
+        return Err(PrismError::Config(format!(
+            "PRISMLAUNCHER_DATA directory does not exist: {}",
+            path.display()
+        )));
     }
 
-    // Standard location
+    // 2. Config file data_dir
+    if let Some(path) = config_data_dir {
+        if path.exists() {
+            return Ok(path);
+        }
+        return Err(PrismError::Config(format!(
+            "Configured data_dir does not exist: {}",
+            path.display()
+        )));
+    }
+
+    // 3. Standard platform location
     if let Some(data_dir) = dirs::data_dir() {
         let standard = data_dir.join("PrismLauncher");
         if standard.exists() {
@@ -55,7 +70,7 @@ pub fn find_prism_data_dir() -> Result<PathBuf> {
         }
     }
 
-    // Flatpak location (Linux only)
+    // 4. Flatpak location (Linux only)
     #[cfg(target_os = "linux")]
     {
         if let Some(home) = dirs::home_dir() {

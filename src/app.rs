@@ -203,7 +203,7 @@ pub struct App {
 }
 
 impl App {
-    pub fn new(config: PrismConfig) -> Result<Self> {
+    pub fn new(config: PrismConfig, app_config: AppConfig) -> Result<Self> {
         use crate::data::{load_accounts, load_groups, load_instances};
 
         let instances_dir = config.instances_dir();
@@ -212,8 +212,6 @@ impl App {
         let accounts = load_accounts(&config.accounts_path())?;
 
         let active_account = accounts.iter().find(|a| a.is_active).cloned();
-
-        let app_config = AppConfig::load();
 
         let sort_mode = app_config.default_sort_mode();
         let sort_ascending = app_config.sort_ascending;
