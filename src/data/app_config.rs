@@ -9,6 +9,8 @@ pub struct AppConfig {
     pub default_sort: String,
     #[serde(default = "default_true")]
     pub sort_ascending: bool,
+    #[serde(default, skip_serializing_if = "Option::is_none")]
+    pub data_dir: Option<String>,
 }
 
 fn default_true() -> bool {
@@ -24,6 +26,7 @@ impl Default for AppConfig {
         Self {
             default_sort: default_sort(),
             sort_ascending: true,
+            data_dir: None,
         }
     }
 }
@@ -65,6 +68,10 @@ impl AppConfig {
         }
     }
 
+    pub fn resolved_data_dir(&self) -> Option<PathBuf> {
+        self.data_dir.as_ref().map(|p| expand_tilde(p))
+    }
+
     pub fn default_sort_mode(&self) -> SortMode {
         match self.default_sort.as_str() {
             "Name" => SortMode::Name,
@@ -74,4 +81,17 @@ impl AppConfig {
             _ => SortMode::LastPlayed,
         }
     }
+}
+
+fn expand_tilde(path: &str) -> PathBuf {
+    if let Some(rest) = path.strip_prefix("~/") {
+        if let Some(home) = dirs::home_dir() {
+            return home.join(rest);
+        }
+    } else if path == "~" {
+        if let Some(home) = dirs::home_dir() {
+            return home;
+        }
+    }
+    PathBuf::from(path)
 }

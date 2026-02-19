@@ -10,7 +10,7 @@ mod view;
 
 use app::App;
 use color_eyre::Result;
-use data::{PrismConfig, find_prism_data_dir};
+use data::{AppConfig, PrismConfig, find_prism_data_dir};
 use message::Message;
 use std::time::Duration;
 use tui::{Event, EventStream, Terminal};
@@ -19,9 +19,10 @@ use tui::{Event, EventStream, Terminal};
 async fn main() -> Result<()> {
     color_eyre::install()?;
 
-    let data_dir = find_prism_data_dir()?;
+    let app_config = AppConfig::load();
+    let data_dir = find_prism_data_dir(app_config.resolved_data_dir())?;
     let config = PrismConfig::load(&data_dir)?;
-    let mut app = App::new(config)?;
+    let mut app = App::new(config, app_config)?;
     let mut terminal = Terminal::new()?;
     let mut events = EventStream::new(Duration::from_millis(250));
 
