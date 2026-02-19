@@ -45,6 +45,10 @@ pub fn find_prism_data_dir(config_data_dir: Option<PathBuf>) -> Result<PathBuf> 
         if path.exists() {
             return Ok(path);
         }
+        return Err(PrismError::Config(format!(
+            "PRISMLAUNCHER_DATA directory does not exist: {}",
+            path.display()
+        )));
     }
 
     // 2. Config file data_dir
