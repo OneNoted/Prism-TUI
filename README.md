@@ -103,13 +103,34 @@ Press `/` to enter search mode. Type to filter the list incrementally. Press `En
 
 ## Configuration
 
-prism-tui reads its configuration from PrismLauncher's data directory:
+### PrismLauncher Data Directory
 
-- **Linux**: `~/.local/share/PrismLauncher/`
+prism-tui automatically detects your PrismLauncher data directory:
+
+- **Linux**: `~/.local/share/PrismLauncher/` or Flatpak location
 - **macOS**: `~/Library/Application Support/PrismLauncher/`
 - **Windows**: `%APPDATA%/PrismLauncher/`
 
-No additional configuration is required.
+For custom or portable installations, you can override the data directory in two ways (checked in this order):
+
+1. **Environment variable**: `PRISMLAUNCHER_DATA=/path/to/data prism-tui`
+2. **Config file**: Set `data_dir` in the config (see below)
+
+### Config File
+
+prism-tui stores its settings in a TOML config file:
+
+- **Linux**: `~/.config/prism-tui/config.toml`
+- **macOS**: `~/Library/Application Support/prism-tui/config.toml`
+- **Windows**: `%APPDATA%\prism-tui\config.toml`
+
+```toml
+default_sort = "Last Played"
+sort_ascending = true
+data_dir = "~/Games/PrismLauncher"  # optional, overrides auto-detection
+```
+
+Sort and sort-direction preferences are saved automatically. The `data_dir` option supports `~` tilde expansion.
 
 ## Architecture
 
