@@ -12,15 +12,6 @@ pub struct PrismConfig {
 
 impl PrismConfig {
     pub fn load(data_dir: &Path, instances_dir_override: Option<PathBuf>) -> Result<Self> {
-        if let Some(ref dir) = instances_dir_override
-            && !dir.exists()
-        {
-            return Err(PrismError::Config(format!(
-                "Configured instances_dir does not exist: {}",
-                dir.display()
-            )));
-        }
-
         let config_path = data_dir.join("prismlauncher.cfg");
         let mut config = Ini::new();
 

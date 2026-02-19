@@ -21,7 +21,17 @@ async fn main() -> Result<()> {
 
     let app_config = AppConfig::load();
     let data_dir = find_prism_data_dir(app_config.resolved_data_dir())?;
-    let config = PrismConfig::load(&data_dir, app_config.resolved_instances_dir())?;
+    let instances_dir = app_config.resolved_instances_dir();
+    if let Some(ref dir) = instances_dir
+        && !dir.exists()
+    {
+        return Err(error::PrismError::Config(format!(
+            "Configured instances_dir does not exist: {}",
+            dir.display()
+        ))
+        .into());
+    }
+    let config = PrismConfig::load(&data_dir, instances_dir)?;
     let mut app = App::new(config, app_config)?;
     let mut terminal = Terminal::new()?;
     let mut events = EventStream::new(Duration::from_millis(250));
