@@ -11,6 +11,8 @@ pub struct AppConfig {
     pub sort_ascending: bool,
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub data_dir: Option<String>,
+    #[serde(default, skip_serializing_if = "Option::is_none")]
+    pub instances_dir: Option<String>,
 }
 
 fn default_true() -> bool {
@@ -27,6 +29,7 @@ impl Default for AppConfig {
             default_sort: default_sort(),
             sort_ascending: true,
             data_dir: None,
+            instances_dir: None,
         }
     }
 }
@@ -70,6 +73,10 @@ impl AppConfig {
 
     pub fn resolved_data_dir(&self) -> Option<PathBuf> {
         self.data_dir.as_ref().map(|p| expand_tilde(p))
+    }
+
+    pub fn resolved_instances_dir(&self) -> Option<PathBuf> {
+        self.instances_dir.as_ref().map(|p| expand_tilde(p))
     }
 
     pub fn default_sort_mode(&self) -> SortMode {
