@@ -22,6 +22,13 @@ A terminal user interface for [PrismLauncher](https://prismlauncher.org/) - mana
 
 ## Installation
 
+### Arch Linux Packaging
+
+Arch Linux package definitions live under:
+
+- `packaging/aur/prism-tui-bin`
+- `packaging/aur/prism-tui-git`
+
 ### From Source
 
 ```bash
